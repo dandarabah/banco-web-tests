@@ -2,13 +2,16 @@ describe('Login', () => {
   beforeEach(() => {
     //Arrange
     cy.visit('http://localhost:4000/')
+    cy.screenshot('apos-visitar-pagina')
   })
 
   it('Login com dados válidos deve permitir acesso ao sistema', () => {
 
     cy.get('#username').click().type('Lia.Rosa')
     cy.get('#senha').click().type('425133')
+    cy.screenshot('apos-digitar-credenciais-validas')
     cy.contains('button', 'Entrar').click()
+    cy.screenshot('apos-clicar-em-entrar')
 
     //Assert
     cy.contains('h4', 'Realizar Transferência').should('be.visible')
