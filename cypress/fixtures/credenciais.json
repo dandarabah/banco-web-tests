@@ -1,0 +1,12 @@
+{
+    "valida":{
+        "usuario":"Lia.Rosa",
+        "senha":"425133"
+    },
+
+    "invalida":{
+        "usuario":"Lia.Rosa",
+        "senha":"567890"
+    }
+}
+

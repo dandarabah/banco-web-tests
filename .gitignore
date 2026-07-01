@@ -1,2 +1,5 @@
 # Ignorar diretório de dependências
 node_modules/
+
+#Cypress
+cypress/screenshots/
