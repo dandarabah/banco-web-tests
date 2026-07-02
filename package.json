@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cypress run --env URL=http://localhost:4000",
+    "//": "O comando abaixo é o comando padrão para rodar os testes, sem a necessidade de criar variáveis de ambiente para cada ambiente, pois a rota base do sistema é a mesma para todos os ambientes. A baseUrl é definida no arquivo cypress.config.js, e o inicio do teste será sempre a página de login, que é a rota base do sistema.  ",
+    "test": "cypress run",
 
-    "//": "As linhas abaixo são apenas exemplos de configuração",
+    "//": "As linhas abaixo são apenas exemplos de configuração, para variáveis de ambiente, caso seja necessário chamar um ambiente específico, como dev, qa ou prod. No entanto, não é necessário criar variáveis de ambiente para cada ambiente, pois a rota base do sistema é a mesma para todos os ambientes.",
+    "test1": "cypress run --env URL=http://localhost:4000",
     "test-qa": "cypress run --env URL=https://banco.com.br", 
     "test:prod": "cypress run --env URL=https://banco.com.br",
 
