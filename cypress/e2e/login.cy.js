@@ -1,13 +1,14 @@
 describe('Login', () => {
   beforeEach(() => {
     //Arrange
-    cy.visit(Cypress.env('URL'))
+    //A '/' é a rota base definida no arquivo cypress.config.js. O inicio do teste será sempre a página de login, que é a rota base do sistema, que é igual para todos os ambientes (dev, qa, prod). Por isso, não é necessário criar variáveis de ambiente para cada ambiente.
+    cy.visit('/')
     cy.screenshot('apos-visitar-pagina')
   })
 
   it('Login com dados válidos deve permitir acesso ao sistema', () => {
     // Act
-    cy.fixture('credencias').then((credenciais) => {
+    cy.fixture('credenciais').then((credenciais) => {
       cy.get('#username').click().type(credenciais.valida.usuario)
       cy.get('#senha').click().type(credenciais.valida.senha)
     })
@@ -18,7 +19,7 @@ describe('Login', () => {
     //Assert
     cy.contains('h4', 'Realizar Transferência').should('be.visible')
   })
-
+ 
     it('Login com dados inválidos deve impedir acesso ao sistema', () => {
     // Act
     cy.fixture('credenciais').then((credenciais) => {
