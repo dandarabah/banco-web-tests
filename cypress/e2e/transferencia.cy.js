@@ -1,24 +1,22 @@
 describe('Transferencia', () => {
     beforeEach(() => {
         cy.visit('/')
-        cy.fixture('credenciais').then((credenciais) => {
-            cy.get('#username').click().type(credenciais.valida.usuario)
-            cy.get('#senha').click().type(credenciais.valida.senha)
-        })
-        cy.contains('button', 'Entrar').click() 
+        cy.fazerLoginComCredenciaisValidas()
     })    
 
   it('Deve transferir quando informo dados e valores válidos', () => {    
-        cy.get('label[for="conta-origem"]').parent().as('campo-conta-origem') //O .as permite criar um apelido para o elemento selecionado, que pode ser reutilizado em outros comandos. O Cypress permite criar apelidos para elementos, rotas e variáveis.
-        cy.get('@campo-conta-origem').click()
-        cy.get('@campo-conta-origem').contains('João da Silva').click()
+        //Act    
+        cy.realizarTransferencia('João da Silva', 'Lua Dourada', '600') //O comando customizado realizarTransferencia é utilizado para realizar uma transferência entre contas. O comando recebe como parâmetro a conta de origem, a conta de destino e o valor da transferência, e utiliza os comandos customizados selecionarOpcaoNaCombox e get para preencher os campos do formulário de transferência. Em seguida, o comando clica no botão "Transferir" para enviar a solicitação de transferência.
 
-        cy.get('label[for="conta-destino"]').parent().as('campo-conta-destino')
-        cy.get('@campo-conta-destino').click()
-        cy.get('@campo-conta-destino').contains('Lua Dourada').click()  
+        //Assert
+        cy.verificarMensagemNoToast('Transferência realizada!')
+    })
+
+        it('Deve apresentar erro quando tentar transferir mais de 5 mil sem o token', () => {    
+        //Act
+        cy.realizarTransferencia('João da Silva', 'Lua Dourada', '5000.01') 
         
-        cy.get('#valor').click().type('1000')
-        cy.contains('button', 'Transferir').click()
-        cy.get('.toast').should('have.text', 'Transferência realizada!')
+        //Assert
+        cy.verificarMensagemNoToast('Autenticação necessária para transferências acima de R$5.000,00.')
     })
 })
